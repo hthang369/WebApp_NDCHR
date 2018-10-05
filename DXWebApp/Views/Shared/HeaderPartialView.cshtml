@@ -1,0 +1,33 @@
+﻿@model HeaderViewRenderMode
+
+@if(Model == HeaderViewRenderMode.Title) {
+    <div class="templateTitle">
+        @Html.ActionLink(Convert.ToString(ViewData["Title"]), "Index", "Home")
+    </div>
+}
+else if (Model == HeaderViewRenderMode.Panel)
+{
+    <div class="loginControl">
+        @Html.Partial("LogOnPartialView")
+    </div>
+}
+else
+{
+    if (Model == HeaderViewRenderMode.Full)
+    {
+        <div class="headerTop">
+            <div class="templateTitle">
+                <div class="btn-group">
+                    <button class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a class="btnClearCache" href="javascript:;">Xóa bộ nhớ đệm</a></li>
+                    </ul>
+                </div>
+                @Html.ActionLink(Convert.ToString(ViewData["Title"]), "Index", "Home")
+            </div>
+            <div class="loginControl">
+                @Html.Partial("LogOnPartialView")
+            </div>
+        </div>
+    }
+}

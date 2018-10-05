@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DXWebApp.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="WebTitle" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">NDC HR</Value>
+    </Setting>
+    <Setting Name="WebEmail" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">noreply@yensaothienviet.vn</Value>
+    </Setting>
+    <Setting Name="WebEmailServer" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mail.yensaothienviet.vn</Value>
+    </Setting>
+    <Setting Name="WebEmailUser" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">noreply@yensaothienviet.vn</Value>
+    </Setting>
+    <Setting Name="WebEmailPass" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ForService</Value>
+    </Setting>
+    <Setting Name="WebEmailPort" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">587</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

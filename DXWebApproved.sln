@@ -1,0 +1,108 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpertWebLib", "ExpertWebLib\ExpertWebLib.csproj", "{937FDEDE-CA0D-4702-B9B3-98D66C1F0419}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpertERPWeb.BaseEntities", "ExpertERPWeb.BaseEntities\ExpertERPWeb.BaseEntities.csproj", "{5D28D9EC-76A2-4389-80C7-00FC045840ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpertERPProcedure", "ExpertERPProcedure\ExpertERPProcedure.csproj", "{5777D13A-F52F-473A-AF89-A089282C092D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DXWebApp", "DXWebApp\DXWebApp.csproj", "{9063C867-4E90-4F3E-8ADC-56CCDF1ADC17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DXWebApplication1", "..\DXWebApplication1\DXWebApplication1.csproj", "{2EB106E7-9372-4461-B81F-8B242DCE19D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{937FDEDE-CA0D-4702-B9B3-98D66C1F0419}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{937FDEDE-CA0D-4702-B9B3-98D66C1F0419}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{937FDEDE-CA0D-4702-B9B3-98D66C1F0419}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{937FDEDE-CA0D-4702-B9B3-98D66C1F0419}.Debug|x64.Build.0 = Debug|Any CPU
+		{937FDEDE-CA0D-4702-B9B3-98D66C1F0419}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{937FDEDE-CA0D-4702-B9B3-98D66C1F0419}.Debug|x86.Build.0 = Debug|Any CPU
+		{937FDEDE-CA0D-4702-B9B3-98D66C1F0419}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{937FDEDE-CA0D-4702-B9B3-98D66C1F0419}.Release|Any CPU.Build.0 = Release|Any CPU
+		{937FDEDE-CA0D-4702-B9B3-98D66C1F0419}.Release|x64.ActiveCfg = Release|Any CPU
+		{937FDEDE-CA0D-4702-B9B3-98D66C1F0419}.Release|x64.Build.0 = Release|Any CPU
+		{937FDEDE-CA0D-4702-B9B3-98D66C1F0419}.Release|x86.ActiveCfg = Release|Any CPU
+		{937FDEDE-CA0D-4702-B9B3-98D66C1F0419}.Release|x86.Build.0 = Release|Any CPU
+		{5D28D9EC-76A2-4389-80C7-00FC045840ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D28D9EC-76A2-4389-80C7-00FC045840ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D28D9EC-76A2-4389-80C7-00FC045840ED}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5D28D9EC-76A2-4389-80C7-00FC045840ED}.Debug|x64.Build.0 = Debug|Any CPU
+		{5D28D9EC-76A2-4389-80C7-00FC045840ED}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5D28D9EC-76A2-4389-80C7-00FC045840ED}.Debug|x86.Build.0 = Debug|Any CPU
+		{5D28D9EC-76A2-4389-80C7-00FC045840ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D28D9EC-76A2-4389-80C7-00FC045840ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D28D9EC-76A2-4389-80C7-00FC045840ED}.Release|x64.ActiveCfg = Release|Any CPU
+		{5D28D9EC-76A2-4389-80C7-00FC045840ED}.Release|x64.Build.0 = Release|Any CPU
+		{5D28D9EC-76A2-4389-80C7-00FC045840ED}.Release|x86.ActiveCfg = Release|Any CPU
+		{5D28D9EC-76A2-4389-80C7-00FC045840ED}.Release|x86.Build.0 = Release|Any CPU
+		{5777D13A-F52F-473A-AF89-A089282C092D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5777D13A-F52F-473A-AF89-A089282C092D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5777D13A-F52F-473A-AF89-A089282C092D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5777D13A-F52F-473A-AF89-A089282C092D}.Debug|x64.Build.0 = Debug|Any CPU
+		{5777D13A-F52F-473A-AF89-A089282C092D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5777D13A-F52F-473A-AF89-A089282C092D}.Debug|x86.Build.0 = Debug|Any CPU
+		{5777D13A-F52F-473A-AF89-A089282C092D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5777D13A-F52F-473A-AF89-A089282C092D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5777D13A-F52F-473A-AF89-A089282C092D}.Release|x64.ActiveCfg = Release|Any CPU
+		{5777D13A-F52F-473A-AF89-A089282C092D}.Release|x64.Build.0 = Release|Any CPU
+		{5777D13A-F52F-473A-AF89-A089282C092D}.Release|x86.ActiveCfg = Release|Any CPU
+		{5777D13A-F52F-473A-AF89-A089282C092D}.Release|x86.Build.0 = Release|Any CPU
+		{9063C867-4E90-4F3E-8ADC-56CCDF1ADC17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9063C867-4E90-4F3E-8ADC-56CCDF1ADC17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9063C867-4E90-4F3E-8ADC-56CCDF1ADC17}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9063C867-4E90-4F3E-8ADC-56CCDF1ADC17}.Debug|x64.Build.0 = Debug|Any CPU
+		{9063C867-4E90-4F3E-8ADC-56CCDF1ADC17}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9063C867-4E90-4F3E-8ADC-56CCDF1ADC17}.Debug|x86.Build.0 = Debug|Any CPU
+		{9063C867-4E90-4F3E-8ADC-56CCDF1ADC17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9063C867-4E90-4F3E-8ADC-56CCDF1ADC17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9063C867-4E90-4F3E-8ADC-56CCDF1ADC17}.Release|x64.ActiveCfg = Release|Any CPU
+		{9063C867-4E90-4F3E-8ADC-56CCDF1ADC17}.Release|x64.Build.0 = Release|Any CPU
+		{9063C867-4E90-4F3E-8ADC-56CCDF1ADC17}.Release|x86.ActiveCfg = Release|Any CPU
+		{9063C867-4E90-4F3E-8ADC-56CCDF1ADC17}.Release|x86.Build.0 = Release|Any CPU
+		{2EB106E7-9372-4461-B81F-8B242DCE19D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EB106E7-9372-4461-B81F-8B242DCE19D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EB106E7-9372-4461-B81F-8B242DCE19D8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2EB106E7-9372-4461-B81F-8B242DCE19D8}.Debug|x64.Build.0 = Debug|Any CPU
+		{2EB106E7-9372-4461-B81F-8B242DCE19D8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2EB106E7-9372-4461-B81F-8B242DCE19D8}.Debug|x86.Build.0 = Debug|Any CPU
+		{2EB106E7-9372-4461-B81F-8B242DCE19D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EB106E7-9372-4461-B81F-8B242DCE19D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EB106E7-9372-4461-B81F-8B242DCE19D8}.Release|x64.ActiveCfg = Release|Any CPU
+		{2EB106E7-9372-4461-B81F-8B242DCE19D8}.Release|x64.Build.0 = Release|Any CPU
+		{2EB106E7-9372-4461-B81F-8B242DCE19D8}.Release|x86.ActiveCfg = Release|Any CPU
+		{2EB106E7-9372-4461-B81F-8B242DCE19D8}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://thangtran369.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = DXWebApp\\DXWebApp.csproj
+		SccProjectName1 = DXWebApp
+		SccLocalPath1 = DXWebApp
+		SccProjectUniqueName2 = ExpertERPProcedure\\ExpertERPProcedure.csproj
+		SccProjectName2 = ExpertERPProcedure
+		SccLocalPath2 = ExpertERPProcedure
+		SccProjectUniqueName3 = ExpertERPWeb.BaseEntities\\ExpertERPWeb.BaseEntities.csproj
+		SccProjectName3 = ExpertERPWeb.BaseEntities
+		SccLocalPath3 = ExpertERPWeb.BaseEntities
+		SccProjectUniqueName4 = ExpertWebLib\\ExpertWebLib.csproj
+		SccProjectName4 = ExpertWebLib
+		SccLocalPath4 = ExpertWebLib
+	EndGlobalSection
+EndGlobal

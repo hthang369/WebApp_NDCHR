@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Servers>
+  <item Name="GMC_NDCHR_Local_Develop" Server="10.6.8.3,1435" User="sa" Pass="os6cp8djnt91JGnnzep8RSVhX4Qtk0PoVI+ffTnrAbU=" Database="Expert_NDCHR_Develop">GMC NDCHR Local Dev</item>
+  <item Name="GMC_NDCHR_Local_Implement" Server="10.6.8.3,1435" User="sa" Pass="os6cp8djnt91JGnnzep8RSVhX4Qtk0PoVI+ffTnrAbU=" Database="Expert_NDCHR_Implement">GMC NDCHR Local Implement</item>
+  <item Name="NDCHR_Internet" Server="14.176.231.222,1233" User="sa" Pass="os6cp8djnt91JGnnzep8RSVhX4Qtk0PoVI+ffTnrAbU=" Database="Expert_NDCHR2018V4">NDCHR Internet</item>
+  <!--<item Name="MNS_Local" Server="118.69.235.170" User="sa" Pass="os6cp8djnt91JGnnzep8RSVhX4Qtk0PoVI+ffTnrAbU=" Database="EXPERT_SPV">MNS Local</item>-->
+</Servers>

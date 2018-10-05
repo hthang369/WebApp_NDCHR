@@ -1,0 +1,96 @@
+﻿<script type="text/javascript">
+    $(function () {
+        $("#lkeEmployee").attr("disabled", "disabled");
+        $('#chkRegisterMember').click(function () {
+            if ($(this).is(":checked"))
+                $("#lkeEmployee").removeAttr("disabled", "disabled");
+            else {
+                $("#lkeEmployee").val(@ViewData["EmployeeID"]).attr("disabled", "disabled").change();
+            }
+        });
+    });
+</script>
+@using DXWebApp.Helpers;
+@using ExpertWebLib;
+@using ExpertERP.BusinessEntities;
+@using System.Data;
+@{ 
+    HREmployeeOffWorksInfo objEmpOffWork = ViewData["objEmployeeOffWork"] as HREmployeeOffWorksInfo;
+    string strHtmlEndTags = "";
+    if (Convert.ToString(ViewData["type"]) == "AddNew")
+    {
+        strHtmlEndTags = "<input type=\"button\" class=\"btnAddNew btn btn-sm btn-info\" value=\"Đăng ký\" />";
+    }
+    else
+    {
+        strHtmlEndTags = string.Format("<input type=\"button\" class=\"btnApproval btn btn-sm btn-info\" data-id=\"{0}\" value=\"Phê duyệt\" {1} />", 0, "") +
+                        string.Format("<input type=\"button\" class=\"btnReject btn btn-sm btn-danger\" data-id=\"{0}\" value=\"Từ chối\" {1} />", 0, "");
+    }
+}
+@Html.DevExpress().Panel(s =>
+{
+    s.Name = "fld_subGuiApproved";
+    s.ControlStyle.CssClass = "modal-dialog modal-lg";
+    s.SetContent(() =>
+    {
+        ViewContext.Writer.Write(Html.ModalPanelStartTag(Convert.ToString(ViewData["ModalTitle"])).ToHtmlString() +
+            Html.GroupPanel("",
+                Html.FormPanel(
+                "<form id='frmRegisterOffWork' method='post'>" +
+                Html.FormGroupControlPanel(
+                    Html.FormControlPanel(
+                        Html.Label("lblFromDate", "Từ ngày", new { @class = "col-sm-2 control-label" }).ToString(),
+                        Html.TextBox("HREmployeeOffWorkFromDate", objEmpOffWork.HREmployeeOffWorkFromDate.HasValue ? objEmpOffWork.HREmployeeOffWorkFromDate.Value.ToString("yyyy-MM-dd") : "", new { @class = "form-control", @id = "dteFromDate", @type = "date" }).ToString()
+                    ).ToString() +
+                    Html.FormControlPanel(
+                        Html.Label("lblToDate", "Đến ngày", new { @class = "col-sm-2 control-label" }).ToString(),
+                        Html.TextBox("HREmployeeOffWorkToDate", objEmpOffWork.HREmployeeOffWorkFromDate.HasValue ? objEmpOffWork.HREmployeeOffWorkToDate.Value.ToString("yyyy-MM-dd") : "", new { @class = "form-control", @id = "dteToDate", @type = "date" }).ToString()
+                    ).ToString()
+                ).ToString() +
+
+                Html.FormGroupControlPanel(
+                    Html.FormControlPanel(
+                        Html.Label("lblEmpLeaveType", "Loại phép", new { @class = "col-sm-2 control-label" }).ToString(),
+                        Html.DropDownList("FK_HREmployeeLeaveTypeID", ViewData["lstEmployeeLeaveType"] as List<SelectListItem>, "-- Chọn loại phép --", new { @class = "form-control" }).ToString()
+                    ).ToString() +
+                    Html.FormControlPanel(
+                        Html.Label("lblRegDays", "Số ngày nghỉ", new { @class = "col-sm-2 control-label" }).ToString(),
+                        Html.TextBox("HREmployeeOffWorkRegDays", objEmpOffWork.HREmployeeOffWorkRegDays, new { @class = "form-control", @id = "txtRegDays" }).ToString()
+                    ).ToString()
+                ).ToString() +
+
+                Html.FormGroupControlPanel(
+                    Html.FormControlPanel(
+                        Html.Label("lblEmpLeaveType", "Loại nghỉ phép", new { @class = "col-sm-2 control-label" }).ToString(),
+                        Html.DropDownList("HREmployeeOffWorkShiftTypeCombo", ViewData["lstShiftTypeCombo"] as List<SelectListItem>, "-- Nghỉ Cả Ngày (08:00 - 17h:30) --", new { @class = "form-control", @id = "lkeShiftType" }).ToString()
+                    ).ToString() +
+                    Html.FormControlPanel(
+                        "<div class='col-sm-2'><label for='chkRegisterMember' class='control-label'><input type='checkbox' id='chkRegisterMember' name='HREmployeeOffWorkHelpCheck' /> Đăng ký hộ</label></div>",
+                        Html.DropDownList("FK_HREmployeeID", ViewData["lstEmployee"] as List<SelectListItem>, new { @class = "form-control", @id = "lkeEmployee" }).ToString()
+                    ).ToString()
+                ).ToString() +
+
+                Html.FormGroupControlPanel(
+                    Html.Label("lblReasonDetail", "Lý do nghỉ", new { @class = "col-sm-2 control-label" }).ToString() +
+                    "<div class='col-sm-10'>" + Html.TextArea("HREmployeeOffWorkReasonDetail", objEmpOffWork.HREmployeeOffWorkReasonDetail, new { @class = "form-control no-resize", @rows = "6" }).ToString() + "</div>"
+                ).ToString() +
+                Html.Hidden("SoNgayPhepNam", ViewData["SoNgayPhepNam"], new { @class = "SoNgayPhepNam" }) +
+                Html.Hidden("SoNgayNghiThangNay", ViewData["SoNgayNghiThangNay"], new { @class = "SoNgayNghiThangNay" }) +
+                Html.Hidden("SoNgayNghiThangTruoc", ViewData["SoNgayNghiThangTruoc"], new { @class = "SoNgayNghiThangTruoc" }) +
+                Html.Hidden("ConLai", ViewData["ConLai"], new { @class = "ConLai" }) + "</form>"
+                ).ToString()
+            ,string.Format(@"<div class='row'>
+                <div class='col-md-6'><label class='col-md-7'>Số ngày phép năm:</label> <span class='SoNgayPhepNam'>{0}</span></div>
+                <div class='col-md-6'><label class='col-md-7'>Số ngày nghỉ tháng này:</label> <span class='SoNgayNghiThangNay'>{1}</span></div>
+                <div class='col-md-6'><label class='col-md-7'>Số ngày nghỉ những tháng trước:</label> <span class='SoNgayNghiThangTruoc'>{2}</span></div>
+                <div class='col-md-6'><label class='col-md-7'>Số ngày phép còn lại:</label> <span class='ConLai'>{3}</span></div>
+                </div>", ViewData["SoNgayPhepNam"], ViewData["SoNgayNghiThangNay"], ViewData["SoNgayNghiThangTruoc"], ViewData["ConLai"])).ToString()
+        );
+
+        //ViewContext.Writer.Write(Html.GroupPanelStartTag("Chi tiết chứng từ").ToString());
+
+        //grid.GetHtml();
+        //ViewContext.Writer.Write(Html.GroupPanelEndTag().ToHtmlString());
+        ViewContext.Writer.Write(Html.ModalPanelEndTag(strHtmlEndTags).ToHtmlString());
+    });
+}).GetHtml();

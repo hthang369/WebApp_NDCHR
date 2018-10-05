@@ -1,0 +1,8 @@
+D:\gmc\WebApplication\NDCHR\ExpertWebLib\bin\Release\ExpertWebLib.dll
+D:\gmc\WebApplication\NDCHR\ExpertWebLib\bin\Release\ExpertWebLib.pdb
+D:\gmc\WebApplication\NDCHR\ExpertWebLib\bin\Release\GMCGATE.dll
+D:\gmc\WebApplication\NDCHR\ExpertWebLib\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\gmc\WebApplication\NDCHR\ExpertWebLib\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\gmc\WebApplication\NDCHR\ExpertWebLib\obj\Release\ExpertWebLib.csprojResolveAssemblyReference.cache
+D:\gmc\WebApplication\NDCHR\ExpertWebLib\obj\Release\ExpertWebLib.dll
+D:\gmc\WebApplication\NDCHR\ExpertWebLib\obj\Release\ExpertWebLib.pdb

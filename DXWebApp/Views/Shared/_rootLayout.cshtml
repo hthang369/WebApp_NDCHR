@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0" />
+    <link href="~/logo.ico" rel="shortcut icon" />
+    <title>@ViewBag.Title</title>
+    
+                @Html.DevExpress().GetStyleSheets( 
+            new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor },
+new StyleSheet { ExtensionSuite = ExtensionSuite.RichEdit },
+new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
+new StyleSheet { ExtensionSuite = ExtensionSuite.Bootstrap }
+        )
+        @Html.DevExpress().GetScripts( 
+            new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+new Script { ExtensionSuite = ExtensionSuite.RichEdit },
+new Script { ExtensionSuite = ExtensionSuite.GridView },
+new Script { ExtensionSuite = ExtensionSuite.Bootstrap }
+        )
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")></script>
+    <script src="@Url.Content("~/Scripts/home-core.js")></script>
+    <script type="text/javascript">
+        $(function () {
+            $(document).ajaxStart(function () {
+                ShowDialog();
+            });
+            $(document).ajaxStop(function () {
+                HideDialog();
+            });
+            $('.btnRefresh').click(function () {
+                GMCWebCore.CheckSession();
+                var str = $(this).data('ctrl');
+                var gv = ASPx.GetControlCollection().Get('gv' + str);
+                if (gv != null) gv.Refresh();
+            });
+            GMCWebCore.showFromRegister('@Url.Action("ShowSubScreenRegisterOffWork", "EmployeeOffWork")');
+            GMCWebCore.ApprovalDocument('@Url.Action("ApprovalDocument", "MailManagement")');
+            GMCWebCore.RejectDocument('@Url.Action("RejectDocument", "MailManagement")');
+            GMCWebCore.SubmitDocument('@Url.Action("SubmitDocument", "EmployeeOffWork")');
+            GMCWebCore.DeleteDocument('@Url.Action("DeleteDocument", "EmployeeOffWork")');
+            GMCWebCore.Register('@Url.Action("RegisterOffWork", "EmployeeOffWork")');
+            GMCWebCore.CancelDocument('@Url.Action("ShowSubScreenCancel", "EmployeeOffWork")');
+            GMCWebCore.ReloadEmployeeOffWork('@Url.Action("ReloadEmployeeOffWork", "EmployeeOffWork")');
+            GMCWebCore.ClearCacheBrowser();
+        });
+        function OnGridFocusedRowDbClick(s, e) {
+            GMCWebCore.CheckSession();
+            s.GetRowValues(s.GetFocusedRowIndex(), 'ADInboxItemID;ADInboxItemDocNo;ADInboxItemDocType', OnGetRowValues);
+        }
+        function OnGridFocusedRowButtonClick(s, e) {
+            GMCWebCore.CheckSession();
+            s.GetRowValues(s.GetFocusedRowIndex(), 'ADInboxItemID;ADInboxItemDocNo;ADInboxItemDocType', OnGetRowValues);
+        }
+        function OnGridFocusedRowOffWorkClick(s, e) {
+            GMCWebCore.CheckSession();
+            s.GetRowValues(s.GetFocusedRowIndex(), 'HREmployeeOffWorkID', OnGetRowOffWorkValues);
+        }
+        function OnGetRowValues(values)
+        {
+            $(function () {
+                $('#showScreen').modal('show').html('').load('@Url.Action("ShowSubScreenApproved", "MailManagement")', { InboxItem: values }, function (response, status, xhr) {
+                    if (status == 'error') {
+                        alert("Có lỗi trong quá trình xử lý!");
+                        $('#showScreen').modal('hide');
+                    }
+                });
+            });
+        }
+        function OnGetRowOffWorkValues(values) {
+            $(function () {
+                $('#showScreen').modal('show').html('').load('@Url.Action("ShowSubScreenApproved", "EmployeeOffWork")', { InboxItem: values }, function (response, status, xhr) {
+                    if (status == 'error') {
+                        alert("Có lỗi trong quá trình xử lý!");
+                        $('#showScreen').modal('hide');
+                    }
+                });
+            });
+        }
+        function ShowDialog() {
+            var loading = ASPx.GetControlCollection().Get('LoadingPanel');
+            if (loading != null) loading.Show();
+            //$('#LoadingPanel').css("left", $(window).width() / 2).css("top", $(window).height() / 2).show();
+        }
+        function HideDialog() {
+            var loading = ASPx.GetControlCollection().Get('LoadingPanel');
+            if (loading != null) loading.Hide();
+            //$('#LoadingPanel').hide();
+        }
+    </script>
+</head>
+<body>
+    @Html.DevExpress().Panel(settings => {
+        settings.Name = "HeaderPane";
+        settings.FixedPosition = PanelFixedPosition.WindowTop;
+        settings.Collapsible = true;
+        settings.SettingsAdaptivity.CollapseAtWindowInnerWidth = 500;
+        settings.ControlStyle.CssClass = "headerPane";
+        settings.Styles.Panel.CssClass = "panel";
+        settings.Styles.ExpandedPanel.CssClass = "expandedPanel";
+        settings.Styles.ExpandBar.CssClass = "bar";
+        settings.SetContent(() => {
+            Html.RenderPartial("HeaderPartialView", HeaderViewRenderMode.Full);
+        });
+        settings.SetExpandBarTemplateContent((c) => {
+            Html.RenderPartial("HeaderPartialView", HeaderViewRenderMode.Title);
+        });
+        settings.SetExpandedPanelTemplateContent((c) =>
+        {
+            Html.RenderPartial("HeaderPartialView", HeaderViewRenderMode.Panel);
+        });
+    }).GetHtml()
+
+    <script type="text/javascript">
+        function updateHeaderMenuOrientation(){
+            if(!window.HeaderMenu) return;
+            var orientation = HeaderPane.IsExpandable() ? 'Vertical' : 'Horizontal';
+            if(orientation !== HeaderMenu.GetOrientation())
+                HeaderMenu.SetOrientation(orientation);
+        }
+        var collection = ASPxClientControl.GetControlCollection();
+        collection.ControlsInitialized.AddHandler(updateHeaderMenuOrientation);
+        collection.BrowserWindowResized.AddHandler(updateHeaderMenuOrientation);
+    </script>
+
+    @Html.DevExpress().Panel(settings => {
+        settings.Name = "MainPane";
+        settings.ControlStyle.CssClass = "mainContentPane";
+        settings.SetContent(RenderBody().ToHtmlString());
+    }).GetHtml()
+
+    @Html.DevExpress().Panel(settings => {
+        settings.Name = "FooterPane";
+        settings.FixedPosition = PanelFixedPosition.WindowBottom;
+        settings.SettingsAdaptivity.HideAtWindowInnerWidth = 500;
+        settings.ControlStyle.CssClass = "footerPane";
+        settings.Styles.Panel.CssClass = "panel";
+        settings.SetContent(() => {
+            Html.RenderPartial("FooterPartialView");
+        });
+   }).GetHtml()
+    @Html.DevExpress().LoadingPanel(
+        settings =>
+        {
+            settings.Name = "LoadingPanel";
+            settings.Modal = false;
+            settings.ContainerElementID = "MainPane";
+        }
+    ).GetHtml()
+    <div id="showScreen" class="modal fade"></div>
+</body>
+</html>

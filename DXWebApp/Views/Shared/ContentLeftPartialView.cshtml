@@ -1,0 +1,32 @@
+﻿<div class="leftPanel">
+        @* DXCOMMENT: Configure the left panel's menu *@
+    @Html.DevExpress().NavBar(settings => {
+    settings.Name = "LeftNavBar";
+    settings.AutoCollapse = true;
+    settings.EnableAnimation = true;
+    settings.AllowSelectItem = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.ControlStyle.Border.BorderWidth = System.Web.UI.WebControls.Unit.Pixel(0);
+    settings.ControlStyle.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(0);
+    //settings.ClientSideEvents.ItemClick += "function(s, e) { console.log(e); }";
+    settings.Groups.Add(g =>
+    {
+        g.Name = "";
+        g.Text = ExpertERPWeb.BaseEntities.GMCWebApp.GetControlText("Quản lý thông tin phép");
+        g.Items.Add(ExpertERPWeb.BaseEntities.GMCWebApp.GetControlText("Dashboard"), "Dashboard", "", "Home");
+        g.Items.Add(ExpertERPWeb.BaseEntities.GMCWebApp.GetControlText("Đăng ký phép"), "EmployeeOffWork", "", "EmployeeOffWork?type=Register");
+        g.Items.Add(ExpertERPWeb.BaseEntities.GMCWebApp.GetControlText("Phép chờ duyệt"), "EmployeeOffWork", "", "EmployeeOffWork?type=Submit");
+        g.Items.Add(ExpertERPWeb.BaseEntities.GMCWebApp.GetControlText("Phép đã duyệt"), "EmployeeOffWork", "", "EmployeeOffWork?type=Approval");
+        g.Items.Add(ExpertERPWeb.BaseEntities.GMCWebApp.GetControlText("Phép đã hủy"), "EmployeeOffWork", "", "EmployeeOffWork?type=Cancel");
+    });
+    settings.Groups.Add(g =>
+    {
+        g.Name = "";
+        g.Text = ExpertERPWeb.BaseEntities.GMCWebApp.GetControlText("Trung tâm thông báo");
+        g.Items.Add(ExpertERPWeb.BaseEntities.GMCWebApp.GetControlText("Chờ duyệt"), "InProgress", "", "MailManagement?type=InProgress");
+        g.Items.Add(ExpertERPWeb.BaseEntities.GMCWebApp.GetControlText("Đã duyệt"), "Approved", "", "MailManagement?type=Approved");
+        g.Items.Add(ExpertERPWeb.BaseEntities.GMCWebApp.GetControlText("Đã hủy"), "Reject", "", "MailManagement?type=Reject");
+    });
+}).GetHtml()
+@*.BindToXML(HttpContext.Current.Server.MapPath("~/App_Data/SideMenu.xml"), "/menu/*").GetHtml()*@
+</div>

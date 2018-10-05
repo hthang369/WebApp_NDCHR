@@ -1,0 +1,61 @@
+﻿@model System.Collections.IEnumerable
+
+@Html.DevExpress().PageControl(
+    settings =>
+    {
+        settings.Name = "pcFeatures";
+        settings.ActivateTabPageAction = ActivateTabPageAction.Click;
+        settings.EnableHotTrack = true;
+        settings.SaveStateToCookies = false;
+        settings.TabAlign = TabAlign.Left;
+        settings.TabPosition = TabPosition.Top;
+        settings.Width = Unit.Percentage(100);
+        string strDocStatus = Request.Url.Query.Split('=').LastOrDefault();
+        foreach (KeyValuePair<ExpertWebLib.STScreensInfo, Dictionary<ExpertWebLib.STFieldsInfo, List<ExpertWebLib.BusinessObject>>> item in Model)
+        {
+            if (!item.Key.STScreenNumber.StartsWith("DS") && !item.Key.STScreenNumber.Contains("DMMailManagement100"))
+            {
+                if (!item.Key.STScreenName.EndsWith(strDocStatus)) continue;
+                settings.TabPages.Add(ExpertERPWeb.BaseEntities.GMCWebApp.GetControlText(item.Key.STScreenText), item.Key.STScreenName).SetContent(() =>
+                {
+                    KeyValuePair<ExpertWebLib.STFieldsInfo, List<ExpertWebLib.BusinessObject>> objitem = item.Value.Where(t => t.Key.STScreenID.Equals(item.Key.STScreenID) &&
+                                 t.Key.STFieldType.EndsWith("GridControl")).FirstOrDefault();
+                    Html.DevExpress().Panel(s =>
+                    {
+                        s.Name = "pnl" + item.Key.STScreenText.Trim();
+                        s.ControlStyle.CssClass = "";
+                        s.SetContent(() =>
+                        {
+                            Html.DevExpress().Button(x =>
+                            {
+                                x.Name = "btn" + item.Key.STScreenText.Trim() + "Refesh";
+                                x.ControlStyle.CssClass = "btnRefresh";
+                                //HtmlTextWriter htmlWrite = new HtmlTextWriter(new StringWriter());
+                                //htmlWrite.AddAttribute("data-id", item.Key.STScreenText.Trim());
+                                x.Attributes.Add("data-id", objitem.Key.STFieldID.ToString());
+                                x.Attributes.Add("data-name", item.Key.STScreenText.Trim());
+                                x.Attributes.Add("data-ctrl", objitem.Key.STFieldName);
+                                x.Text = "Làm mới";
+                            }).GetHtml();
+                        });
+                    }).GetHtml();
+
+                    Html.DevExpress().Panel(x =>
+                    {
+                        x.Name = "pnlData" + item.Key.STScreenNumber;
+                        x.SetContent(() =>
+                        {
+                            Html.DevExpress().Panel(t =>
+                            {
+                                t.Name = objitem.Key.STFieldName;
+                                t.SetContent(() =>
+                                {
+                                    Html.RenderPartial("GridViewPartialView", objitem);
+                                });
+                            }).GetHtml();
+                        });
+                    }).GetHtml();
+                });
+            }
+        }
+    }).GetHtml()

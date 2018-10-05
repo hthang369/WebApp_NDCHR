@@ -1,0 +1,117 @@
+﻿@model System.Collections.IEnumerable
+@using DXWebApp.Helpers;
+
+@Html.DevExpress().PageControl(
+    settings =>
+    {
+        settings.Name = "pcFeatures";
+        settings.ActivateTabPageAction = ActivateTabPageAction.Click;
+        settings.EnableHotTrack = true;
+        settings.SaveStateToCookies = false;
+        settings.TabAlign = TabAlign.Left;
+        settings.TabPosition = TabPosition.Top;
+        settings.Width = Unit.Percentage(100);
+        string strDocStatus = Request.Url.Query.Split('=').LastOrDefault();
+        foreach (KeyValuePair<ExpertWebLib.STScreensInfo, Dictionary<ExpertWebLib.STFieldsInfo, List<ExpertWebLib.BusinessObject>>> item in Model)
+        {
+            if (!item.Key.STScreenNumber.StartsWith("DS") && !item.Key.STScreenNumber.Contains("DMMailManagement100"))
+            {
+                settings.TabPages.Add(ExpertERPWeb.BaseEntities.GMCWebApp.GetControlText(item.Key.STScreenText), item.Key.STScreenName).SetContent(() =>
+                {
+                    KeyValuePair<ExpertWebLib.STFieldsInfo, List<ExpertWebLib.BusinessObject>> objitem = item.Value.Where(t => t.Key.STScreenID.Equals(item.Key.STScreenID) &&
+                                 t.Key.STFieldType.EndsWith("GridControl") && !t.Key.STFieldGroup.Contains("HiddenWeb")).FirstOrDefault();
+                    Html.DevExpress().Panel(s =>
+                    {
+                        s.Name = "pnl" + item.Key.STScreenName.Trim();
+                        s.ControlStyle.CssClass = "row";
+                        s.SetContent(() =>
+                        {
+                            Html.DevExpress().Panel(t =>
+                            {
+                                t.Name = "pnlSearchControl" + item.Key.STScreenID;
+                                t.ControlStyle.CssClass = "col-sm-12";
+                                t.SetContent(() =>
+                                {
+                                    ViewContext.Writer.Write(Html.GroupPanelStartTag("Điều kiện tìm kiếm").ToString());
+                                    ViewContext.Writer.Write(Html.FormPanel(
+                                        Html.FormGroupControlPanel(
+                                            Html.FormControlPanel(
+                        Html.Label("lblFormUser", "Chi nhánh", new { @class = "col-sm-1 control-label" }).ToString(),
+                        Html.DropDownList("txtFormUser", ViewData["lstBranchs"] as List<SelectListItem>, "-- Chọn chi nhánh --", new { @class = "form-control" }).ToString()
+                    , "col-sm-3").ToString() +
+                    Html.FormControlPanel(
+                        Html.Label("lblUserCreate", "Khu vực", new { @class = "col-sm-1 control-label" }).ToString(),
+                        Html.DropDownList("txtUserCreate", ViewData["lstAreas"] as List<SelectListItem>, "-- Chọn khu vực --", new { @class = "form-control" }).ToString()
+                    , "col-sm-3").ToString() +
+                    Html.FormControlPanel(
+                        Html.Label("lblFormUser", "Phòng ban", new { @class = "col-sm-1 control-label" }).ToString(),
+                        Html.DropDownList("txtFormUser", ViewData["lstDeparments"] as List<SelectListItem>, "-- Chọn phòng ban --", new { @class = "form-control" }).ToString()
+                    , "col-sm-3").ToString()
+                                            ).ToString() +
+                                            Html.FormGroupControlPanel(
+                    Html.FormControlPanel(
+                        Html.Label("lblUserCreate", "Chức vụ", new { @class = "col-sm-1 control-label" }).ToString(),
+                        Html.DropDownList("txtUserCreate", ViewData["lstPositions"] as List<SelectListItem>, "-- Chọn chức vụ --", new { @class = "form-control" }).ToString()
+                    , "col-sm-3").ToString() +
+                    Html.FormControlPanel(
+                        Html.Label("lblFormUser", "Bộ phận", new { @class = "col-sm-1 control-label" }).ToString(),
+                        Html.DropDownList("txtFormUser", ViewData["lstSections"] as List<SelectListItem>, "-- Chọn bộ phận --", new { @class = "form-control" }).ToString()
+                    , "col-sm-3").ToString() +
+                    Html.FormControlPanel(
+                        Html.Label("lblUserCreate", "Địa bàn", new { @class = "col-sm-1 control-label" }).ToString(),
+                        Html.DropDownList("txtUserCreate", ViewData["lstLocalitys"] as List<SelectListItem>, "-- Chọn địa bàn --", new { @class = "form-control" }).ToString()
+                    , "col-sm-3").ToString()
+                                            ).ToString()
+                                        ).ToString());
+                                    ViewContext.Writer.Write("</div> <!-- panel-body -->");
+                                    ViewContext.Writer.Write("<div class=\"panel-footer row-overflow\">");
+                                    if (strDocStatus == "Register")
+                                    {
+                                        Html.DevExpress().Button(x =>
+                                        {
+                                            x.Name = "btn" + item.Key.STScreenText.Trim() + "Register";
+                                            x.ControlStyle.CssClass = "btnRegister pull-left";
+                                            //HtmlTextWriter htmlWrite = new HtmlTextWriter(new StringWriter());
+                                            //htmlWrite.AddAttribute("data-id", item.Key.STScreenText.Trim());
+                                            x.Attributes.Add("data-type", "AddNew");
+                                            x.Text = "Đăng ký";
+                                        }).GetHtml();
+                                    }
+                                    Html.DevExpress().Button(x =>
+                                    {
+                                        x.Name = "btn" + item.Key.STScreenText.Trim() + "Refesh";
+                                        x.ControlStyle.CssClass = "btnRefresh pull-right";
+                                        //HtmlTextWriter htmlWrite = new HtmlTextWriter(new StringWriter());
+                                        //htmlWrite.AddAttribute("data-id", item.Key.STScreenText.Trim());
+                                        x.Attributes.Add("data-id", objitem.Key.STFieldID.ToString());
+                                        x.Attributes.Add("data-name", item.Key.STScreenText.Trim());
+                                        x.Attributes.Add("data-ctrl", objitem.Key.STFieldName);
+                                        x.Text = "Làm mới";
+                                    }).GetHtml();
+                                    ViewContext.Writer.Write("</div> <!-- panel-footer -->");
+                                    ViewContext.Writer.Write("</div> <!-- panel panel-default -->");
+                                });
+                            }).GetHtml();
+
+                        });
+                    }).GetHtml();
+
+                    Html.DevExpress().Panel(x =>
+                    {
+                        x.Name = "pnlData" + item.Key.STScreenNumber;
+                        x.SetContent(() =>
+                        {
+                            Html.DevExpress().Panel(t =>
+                            {
+                                t.Name = objitem.Key.STFieldName;
+                                t.SetContent(() =>
+                                {
+                                    Html.RenderPartial("GridViewPartialView", objitem);
+                                });
+                            }).GetHtml();
+                        });
+                    }).GetHtml();
+                });
+            }
+        }
+    }).GetHtml()

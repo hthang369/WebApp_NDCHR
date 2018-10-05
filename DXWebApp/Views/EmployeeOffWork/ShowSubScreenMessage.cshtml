@@ -1,0 +1,59 @@
+﻿<script type="text/javascript">
+    $(function () {
+        $('.btnCancelDoc').click(function () {
+            $.post('@Url.Action("CancelDocument", "EmployeeOffWork")', { iObjectID: $(this).data('id'), sContent: $('#fldRemark').val() }, function (result) {
+                if (result == 'OK') $('.btnRefresh').click();
+            });
+        });
+    });
+</script>
+@using DXWebApp.Helpers;
+@using ExpertWebLib;
+@using ExpertERP.BusinessEntities;
+@using System.Data;
+@Html.DevExpress().Panel(s =>
+{
+    s.Name = "fld_subGuiMessage";
+    s.ControlStyle.CssClass = "modal-dialog modal-lg";
+    s.SetContent(() =>
+    {
+        ViewContext.Writer.Write(Html.ModalPanelStartTag(Convert.ToString(ViewData["ModalTitle"])).ToHtmlString() +
+            "<form method='post'>" +
+            Html.GroupPanel("Thông tin",
+                Html.FormPanel(
+                    Html.FormGroupControlPanel(
+                        Html.FormControlPanel(
+                            Html.Label("lblFormUser", "Nhân viên đăng ký", new { @class = "col-sm-2 control-label" }).ToString(),
+                            "<p class='form-control-static'>" + Convert.ToString(ViewData["EmployeeName"]) + "</p>"
+                        ).ToString() +
+                         Html.FormControlPanel(
+                            Html.Label("lblMailTo", "Loại phép", new { @class = "col-sm-2 control-label" }).ToString(),
+                            "<p class='form-control-static'>" + Convert.ToString(ViewData["EmployeeLeaveType"]) + "</p>"
+                        ).ToString()
+                    ).ToString() +
+
+                    Html.FormGroupControlPanel(
+                        Html.FormControlPanel(
+                            Html.Label("lblSubject", "Số ngày đăng ký", new { @class = "col-sm-2 control-label" }).ToString(),
+                            "<p class='form-control-static'>" + Convert.ToString(ViewData["EmployeeReqDays"]) + "</p>"
+                        ).ToString() +
+                        Html.FormControlPanel(
+                            Html.Label("lblSubject", "Thời gian", new { @class = "col-sm-2 control-label" }).ToString(),
+                            "<p class='form-control-static'>" + Convert.ToString(ViewData["EmployeeFromDate"]) + " - " + Convert.ToString(ViewData["EmployeeToDate"]) + "</p>"
+                        ).ToString()
+                    ).ToString()
+                ).ToString()
+            ).ToString() +
+
+            Html.GroupPanel("Nội dung hủy",
+                Html.FormPanel(
+                    Html.FormGroupControlPanel(
+                        Html.TextArea("fldRemark", "", new { @class = "form-control no-resize", @rows = "5" }).ToString()
+                    , "col-sm-12").ToString()
+                ).ToString()
+            ).ToString() +
+            "</form>"
+        );
+        ViewContext.Writer.Write(Html.ModalPanelEndTag(string.Format("<input type=\"button\" class=\"btnCancelDoc btn btn-sm btn-info\" data-id=\"{0}\" value=\"Hủy đăng ký\" />", ViewData["iObjectID"])).ToHtmlString());
+    });
+}).GetHtml()

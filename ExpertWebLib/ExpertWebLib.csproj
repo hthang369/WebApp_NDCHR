@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{937FDEDE-CA0D-4702-B9B3-98D66C1F0419}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExpertWebLib</RootNamespace>
+    <AssemblyName>ExpertWebLib</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GMCGATE">
+      <HintPath>..\lib\GMCGATE.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>..\lib\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controller\AAColumnAliasController.cs" />
+    <Compile Include="Controller\AATableNameAliasController.cs" />
+    <Compile Include="Controller\ADConfigValuesController.cs" />
+    <Compile Include="Controller\ADUserConfigsController.cs" />
+    <Compile Include="Controller\ADUserGroupsController.cs" />
+    <Compile Include="Controller\ADUserGroupSectionsController.cs" />
+    <Compile Include="Controller\ADUserPassHistorysController.cs" />
+    <Compile Include="Controller\ADUsersController.cs" />
+    <Compile Include="Controller\GEDictionarysController.cs" />
+    <Compile Include="Controller\GELanguagesController.cs" />
+    <Compile Include="Controller\GELookupTablesController.cs" />
+    <Compile Include="Controller\GEUserAuditsController.cs" />
+    <Compile Include="Controller\STFieldColumnsController.cs" />
+    <Compile Include="Controller\STFieldEventFunctionsController.cs" />
+    <Compile Include="Controller\STFieldEventsController.cs" />
+    <Compile Include="Controller\STFieldFormatGroupsController.cs" />
+    <Compile Include="Controller\STFieldFormatsController.cs" />
+    <Compile Include="Controller\STFieldsController.cs" />
+    <Compile Include="Controller\STGridColumnsController.cs" />
+    <Compile Include="Controller\STLookupExColumnsController.cs" />
+    <Compile Include="Controller\STModuleConfigsController.cs" />
+    <Compile Include="Controller\STModuleDescriptionsController.cs" />
+    <Compile Include="Controller\STModulesController.cs" />
+    <Compile Include="Controller\STModuleTablesController.cs" />
+    <Compile Include="Controller\STModuleToUserGroupSectionsController.cs" />
+    <Compile Include="Controller\STRptsController.cs" />
+    <Compile Include="Controller\STScreensController.cs" />
+    <Compile Include="Controller\STToolbarFunctionsController.cs" />
+    <Compile Include="Controller\STToolbarsController.cs" />
+    <Compile Include="GMCWebLib\BaseBusinessController.cs" />
+    <Compile Include="GMCWebLib\BusinessObject.cs" />
+    <Compile Include="GMCWebLib\DALBaseProvider.cs" />
+    <Compile Include="GMCWebLib\DynamicInvoker.cs" />
+    <Compile Include="GMCWebLib\GMCDbUtil.cs" />
+    <Compile Include="GMCWebLib\GMCWebApp.cs" />
+    <Compile Include="GMCWebLib\SqlDatabaseHelper.cs" />
+    <Compile Include="Info\AAColumnAliasInfo.cs" />
+    <Compile Include="Info\AATableNameAliasInfo.cs" />
+    <Compile Include="Info\ADConfigValuesInfo.cs" />
+    <Compile Include="Info\ADUserConfigsInfo.cs" />
+    <Compile Include="Info\ADUserGroupSectionsInfo.cs" />
+    <Compile Include="Info\ADUserGroupsInfo.cs" />
+    <Compile Include="Info\ADUserPassHistorysInfo.cs" />
+    <Compile Include="Info\ADUsersInfo.cs" />
+    <Compile Include="Info\GEDictionarysInfo.cs" />
+    <Compile Include="Info\GELanguagesInfo.cs" />
+    <Compile Include="Info\GELookupTablesInfo.cs" />
+    <Compile Include="Info\GEUserAuditsInfo.cs" />
+    <Compile Include="Info\STFieldColumnsInfo.cs" />
+    <Compile Include="Info\STFieldEventFunctionsInfo.cs" />
+    <Compile Include="Info\STFieldEventsInfo.cs" />
+    <Compile Include="Info\STFieldFormatGroupsInfo.cs" />
+    <Compile Include="Info\STFieldFormatsInfo.cs" />
+    <Compile Include="Info\STFieldsInfo.cs" />
+    <Compile Include="Info\STGridColumnsInfo.cs" />
+    <Compile Include="Info\STLookupExColumnsInfo.cs" />
+    <Compile Include="Info\STModuleConfigsInfo.cs" />
+    <Compile Include="Info\STModuleDescriptionsInfo.cs" />
+    <Compile Include="Info\STModulesInfo.cs" />
+    <Compile Include="Info\STModuleTablesInfo.cs" />
+    <Compile Include="Info\STModuleToUserGroupSectionsInfo.cs" />
+    <Compile Include="Info\STRptsInfo.cs" />
+    <Compile Include="Info\STScreensInfo.cs" />
+    <Compile Include="Info\STToolbarFunctionsInfo.cs" />
+    <Compile Include="Info\STToolbarsInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

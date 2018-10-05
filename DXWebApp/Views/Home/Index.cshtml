@@ -1,0 +1,110 @@
+﻿@model System.Collections.IEnumerable
+@using DXWebApp.Helpers;
+@using ExpertERPWeb.BaseEntities;
+@using ExpertERP.BusinessEntities;
+@{
+    HREmployeesInfo EmployeeInfo = ViewData["EmployeeInfo"] as HREmployeesInfo;
+}
+
+@Html.DevExpress().PageControl(
+    settings =>
+    {
+        settings.Name = "pcFeatures";
+        settings.ActivateTabPageAction = ActivateTabPageAction.Click;
+        settings.EnableHotTrack = true;
+        settings.SaveStateToCookies = false;
+        settings.TabAlign = TabAlign.Left;
+        settings.TabPosition = TabPosition.Top;
+        settings.Width = Unit.Percentage(100);
+        settings.TabPages.Add(GMCWebApp.GetControlText("Dashboard"), "DMDashboard").SetContent(() =>
+        {
+            Html.DevExpress().Panel(p =>
+            {
+                p.Name = "fld_pnlDashboard";
+                p.ControlStyle.CssClass = "";
+                p.SetContent(() =>
+                {
+                    ViewContext.Writer.Write(
+                        Html.GroupPanel(GMCWebApp.GetControlText("Thông tin cá nhân"),
+                            Html.FormPanel(
+                                Html.FormGroupControlPanel(
+                                    Html.FormControlPanel(
+                                        Html.Label("lblEmployeeNo", "Mã nhân viên", new { @class = "col-sm-2 control-label" }).ToString(),
+                                        Html.TextBox("txtEmployeeNo", EmployeeInfo != null ? EmployeeInfo.HREmployeeNo : "", new { @class = "form-control", @readonly = "readonly" }).ToString()
+                                    ).ToString() +
+                                    Html.FormControlPanel(
+                                        Html.Label("lblEmployeeName", "Tên nhân viên", new { @class = "col-sm-2 control-label" }).ToString(),
+                                        Html.TextBox("txtEmployeeName", EmployeeInfo != null ? EmployeeInfo.HREmployeeFullName : "", new { @class = "form-control", @readonly = "readonly" }).ToString()
+                                    ).ToString()
+                                ).ToString() +
+                                Html.FormGroupControlPanel(
+                                    Html.FormControlPanel(
+                                        Html.Label("lblEmployeeDate", "Ngày vào làm", new { @class = "col-sm-2 control-label" }).ToString(),
+                                        Html.TextBox("txtEmployeeDate", EmployeeInfo.HREmployeeStartWorkingDate != null ? EmployeeInfo.HREmployeeStartWorkingDate.Value.ToString("yyyy-MM-dd") : "", new { @class = "form-control", @type = "date", @readonly = "readonly" }).ToString()
+                                    ).ToString() +
+                                    Html.FormControlPanel(
+                                        Html.Label("lblEmployeeAdd", "Nơi làm việc", new { @class = "col-sm-2 control-label" }).ToString(),
+                                        Html.TextBox("txtEmployeeAdd", EmployeeInfo != null ? EmployeeInfo.HREmployeeWorkingPlace : "", new { @class = "form-control", @readonly = "readonly" }).ToString()
+                                    ).ToString()
+                                ).ToString() +
+                                Html.FormGroupControlPanel(
+                                    Html.FormControlPanel(
+                                        Html.Label("lblEmployeePosition", "Vị trí chức vụ", new { @class = "col-sm-2 control-label" }).ToString(),
+                                        Html.DropDownList("txtEmployeePosition", ViewData["lstPositions"] as List<SelectListItem>, "-- Chọn Vị trí --", new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" }).ToString()
+                                    ).ToString() +
+                                    Html.FormControlPanel(
+                                        Html.Label("lblEmployeeSection", "Bộ phận", new { @class = "col-sm-2 control-label" }).ToString(),
+                                        Html.DropDownList("txtEmployeeSection", ViewData["lstSections"] as List<SelectListItem>, "-- Chọn bộ phận --", new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" }).ToString()
+                                    ).ToString()
+                                ).ToString() +
+                                Html.FormGroupControlPanel(
+                                    Html.FormControlPanel(
+                                        Html.Label("lblEmployeeArea", "Khu vực", new { @class = "col-sm-2 control-label" }).ToString(),
+                                        Html.DropDownList("txtEmployeeArea", ViewData["lstAreas"] as List<SelectListItem>, "-- Chọn khu vực --", new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" }).ToString()
+                                    ).ToString() +
+                                    Html.FormControlPanel(
+                                        Html.Label("lblEmployeeBranch", "Chi nhánh", new { @class = "col-sm-2 control-label" }).ToString(),
+                                        Html.DropDownList("txtEmployeeBranch", ViewData["lstBranchs"] as List<SelectListItem>, "-- Chọn chi nhánh --", new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" }).ToString()
+                                    ).ToString()
+                                ).ToString()
+                            ).ToString()
+                        ).ToString());
+                    ViewContext.Writer.Write(
+                        Html.GroupPanel(GMCWebApp.GetControlText("Thông tin phép"),
+                            Html.FormPanel(
+                                Html.FormGroupControlPanel(
+                                    Html.FormControlPanel(
+                                        Html.Label("lblTonNamTruoc", "Tồn năm trước", new { @class = "col-sm-2 control-label" }).ToString(),
+                                        Html.TextBox("txtTonNamTruoc", ViewData["TonNamTruoc"], new { @class = "form-control", @readonly = "readonly" }).ToString()
+                                    ).ToString()
+                                ).ToString() +
+                                Html.FormGroupControlPanel(
+                                    Html.FormControlPanel(
+                                        Html.Label("lblSoNgayPhepName", "Số ngày phép năm", new { @class = "col-sm-2 control-label" }).ToString(),
+                                        Html.TextBox("txtSoNgayPhepName", ViewData["SoNgayPhepNam"], new { @class = "form-control", @readonly = "readonly" }).ToString()
+                                    ).ToString()
+                                ).ToString() +
+                                Html.FormGroupControlPanel(
+                                    Html.FormControlPanel(
+                                        Html.Label("lblSoNgayNghiThangTrc", "Số ngày nghỉ những tháng trước", new { @class = "col-sm-2 control-label" }).ToString(),
+                                        Html.TextBox("txtSoNgayNghiThangTrc", ViewData["SoNgayNghiThangTruoc"], new { @class = "form-control", @readonly = "readonly" }).ToString()
+                                    ).ToString()
+                                ).ToString() +
+                                Html.FormGroupControlPanel(
+                                    Html.FormControlPanel(
+                                        Html.Label("lblSoNgayNghiThangNay", "Số ngày nghỉ tháng này", new { @class = "col-sm-2 control-label" }).ToString(),
+                                        Html.TextBox("txtSoNgayNghiThangNay", ViewData["SoNgayNghiThangNay"], new { @class = "form-control", @readonly = "readonly" }).ToString()
+                                    ).ToString()
+                                ).ToString() +
+                                Html.FormGroupControlPanel(
+                                    Html.FormControlPanel(
+                                        Html.Label("lblSoPhepConLai", "Số ngày phép còn lại", new { @class = "col-sm-2 control-label" }).ToString(),
+                                        Html.TextBox("txtSoPhepConLai", ViewData["ConLai"], new { @class = "form-control", @readonly = "readonly" }).ToString()
+                                    ).ToString()
+                                ).ToString()
+                            ).ToString()
+                        ).ToString());
+                });
+            }).GetHtml();
+        });
+    }).GetHtml()

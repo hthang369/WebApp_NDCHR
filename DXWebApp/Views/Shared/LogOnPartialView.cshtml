@@ -1,0 +1,10 @@
+@if(DXWebApp.AuthConfig.GetSession("CurrentUser") == null) {
+    @: | 
+    @Html.ActionLink("Login", "Login", "Account")
+}
+else {
+    @: Welcome <b>@Convert.ToString(DXWebApp.AuthConfig.GetSession("CurrentUser"))</b>!
+    
+    @: |
+    @Html.ActionLink("Logout", "LogOff", "Account")
+}

@@ -1,0 +1,94 @@
+﻿
+@using ExpertWebLib;
+@using DXWebApp.Helpers;
+@Html.DevExpress().GridView(y =>
+{
+    KeyValuePair<STFieldsInfo, List<BusinessObject>> objitem = Model;
+    if (objitem.Key != null)
+    {
+        y.Name = "gv" + objitem.Key.STFieldName;
+        y.KeyFieldName = GMCDbUtil.GetTablePrimaryColumn(objitem.Value.Cast<STGridColumnsInfo>().FirstOrDefault().STGridColumnTableName);
+        y.CallbackRouteValues = new { Controller = "MailManagement", Action = "GridViewPartialView", iFieldID = objitem.Key.STFieldID, sType = y.KeyFieldName.Replace("ItemID","").Replace("AD",""), sDocType = "EmployeeOffWork", sStatus = objitem.Key.STFieldGroup };
+        y.Width = Unit.Percentage(100);
+        y.SettingsPager.PageSize = 50;
+        y.ControlStyle.Paddings.Padding = Unit.Pixel(0);
+        y.ControlStyle.BorderBottom.BorderWidth = Unit.Pixel(1);
+        y.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+        y.SettingsBehavior.AllowFocusedRow = true;
+        y.SettingsResizing.ColumnResizeMode = ColumnResizeMode.Control;
+        y.Settings.ShowFilterRow = true;
+        y.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        y.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Disabled;
+        if (y.KeyFieldName.Contains("Inbox") && (objitem.Key.STFieldGroup.Equals("InProcess") || objitem.Key.STFieldGroup.Equals("Rejected")))
+        {
+            if (Request.Browser.IsMobileDevice)
+            {
+                y.CommandColumn.Visible = true;
+                y.CommandColumn.Width = 50;
+                y.CommandColumn.ButtonRenderMode = GridCommandButtonRenderMode.Default;
+                y.CommandColumn.CustomButtons.Add(new GridViewCommandColumnCustomButton() { ID = "btnDetail", Text = "Details" });
+                y.ClientSideEvents.CustomButtonClick = "OnGridFocusedRowButtonClick";
+            }
+            if (objitem.Key.STFieldGroup.Equals("InProcess"))
+            {
+                y.Columns.Add(c =>
+                {
+                    c.Caption = "#";
+                    c.SortIndex = 0;
+                    c.VisibleIndex = 0;
+                    c.Width = Unit.Pixel(120);
+                    c.CellStyle.CssClass = "action_link";
+                    c.SetDataItemTemplateContent(v =>
+                    {
+                        string strTblName = objitem.Value.Cast<STGridColumnsInfo>().FirstOrDefault().STGridColumnTableName;
+                        if ((DataBinder.Eval(v.DataItem, strTblName.TrimEnd('s') + "Protocol").Equals("Approval") && string.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(v.DataItem, strTblName.TrimEnd('s') + "Action")))))
+                        {
+                            ViewContext.Writer.Write(string.Format("<a class=\"btnApproval btn-sm btn-xs\" data-id=\"{0}\">Phê duyệt</a>", DataBinder.Eval(v.DataItem, y.KeyFieldName)));
+                            ViewContext.Writer.Write(string.Format("<a class=\"btnReject btn-sm btn-xs\" data-id=\"{0}\">Từ chối</a>", DataBinder.Eval(v.DataItem, y.KeyFieldName)));
+                        }
+                    });
+                });
+            }
+            y.ClientSideEvents.RowDblClick = "OnGridFocusedRowDbClick";
+        }
+        y.SettingsBehavior.AllowSort = true;
+        y.Settings.ShowHeaderFilterButton = true;
+        y.Settings.ShowFilterBar = GridViewStatusBarMode.Auto;
+        foreach (STGridColumnsInfo col in objitem.Value)
+        {
+            y.Columns.Add(c =>
+            {
+                c.Name = col.STGridColumnName;
+                c.FieldName = col.STGridColumnName;
+                c.Caption = col.STGridColumnCaption;
+                c.Width = col.STGridColumnW;
+                c.VisibleIndex = col.STGridColumnTabIndex;
+                c.Visible = col.STGridColumnVisible;
+                c.SortIndex = col.STGridColumnTabIndex;
+                c.UnSort();
+                c.SettingsHeaderFilter.Mode = GridHeaderFilterMode.List;
+                if (c.FieldName == "ADInboxItemDate")
+                {
+                    c.SortDescending();
+                }
+                if (GMCDbUtil.GetColumnDataType(col.STGridColumnTableName, col.STGridColumnName) == "datetime")
+                {
+                    c.ColumnType = MVCxGridViewColumnType.DateEdit;
+                    c.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+                }
+                else if (GMCDbUtil.GetColumnDataType(col.STGridColumnTableName, col.STGridColumnName) == "float")
+                {
+                    c.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                    c.PropertiesEdit.DisplayFormatString = "n0";
+                }
+                else if (GMCDbUtil.IsForeignKey(col.STGridColumnTableName, col.STGridColumnName))
+                {
+                    c.ColumnType = MVCxGridViewColumnType.ComboBox;
+                    HtmlControls.InitColumnLookupEdit((ComboBoxProperties)c.PropertiesEdit, col);
+                }
+            });
+            y.FormatConditions.AddHighlight(col.STGridColumnName, string.Format("({0}Protocol = 'Approval' and {0}Action = '') or (ADMailReadUsers like '{1}')", col.STGridColumnTableName.TrimEnd('s'), DXWebApp.AuthConfig.GetSession("CurrentUser")), GridConditionHighlightFormat.BoldText);
+        }
+    }
+}).GetHtml()
+

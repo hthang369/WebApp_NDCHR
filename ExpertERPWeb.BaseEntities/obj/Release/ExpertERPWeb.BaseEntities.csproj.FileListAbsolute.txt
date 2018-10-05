@@ -1,0 +1,10 @@
+D:\gmc\WebApplication\NDCHR\ExpertERPWeb.BaseEntities\bin\Release\ExpertERPWeb.BaseEntities.dll
+D:\gmc\WebApplication\NDCHR\ExpertERPWeb.BaseEntities\bin\Release\ExpertERPWeb.BaseEntities.pdb
+D:\gmc\WebApplication\NDCHR\ExpertERPWeb.BaseEntities\bin\Release\ExpertWebLib.dll
+D:\gmc\WebApplication\NDCHR\ExpertERPWeb.BaseEntities\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\gmc\WebApplication\NDCHR\ExpertERPWeb.BaseEntities\bin\Release\GMCGATE.dll
+D:\gmc\WebApplication\NDCHR\ExpertERPWeb.BaseEntities\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\gmc\WebApplication\NDCHR\ExpertERPWeb.BaseEntities\bin\Release\ExpertWebLib.pdb
+D:\gmc\WebApplication\NDCHR\ExpertERPWeb.BaseEntities\obj\Release\ExpertERPWeb.BaseEntities.csprojResolveAssemblyReference.cache
+D:\gmc\WebApplication\NDCHR\ExpertERPWeb.BaseEntities\obj\Release\ExpertERPWeb.BaseEntities.dll
+D:\gmc\WebApplication\NDCHR\ExpertERPWeb.BaseEntities\obj\Release\ExpertERPWeb.BaseEntities.pdb

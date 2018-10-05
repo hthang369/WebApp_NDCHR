@@ -1,0 +1,111 @@
+﻿<script type="text/javascript">
+    //$(function () {
+    //    $('.groupSplitter').height(206).split({ orientation: 'vertical' });
+    //});
+    //var counter = 0;
+    //$(document.documentElement).on('mousedown', function (e) {
+    //    console.log('x');
+    //    var $target = $(e.target);
+    //    console.log($target);
+    //    if ($target.is('.vsplitter, .hsplitter')) {
+    //        console.log('splitter');
+    //        if (++counter == 2) {
+    //            console.log('double click');
+    //            $target.parents('.splitter_panel').eq(0).data('splitter').position(20);
+    //            counter = 0;
+    //        }
+    //    } else {
+    //        counter = 0;
+    //    }
+    //});
+</script>
+@using DXWebApp.Helpers;
+@using ExpertWebLib;
+@using ExpertERP.BusinessEntities;
+@using System.Data;
+@{ 
+    ADUsersController UserCtrl = new ADUsersController();
+    ADApprovalProcsController ApprovalProcCtrl = new ADApprovalProcsController();
+    ADApprovalProcStepsController ApprovalProcStepCtrl = new ADApprovalProcStepsController();
+    ADInboxItemsInfo inboxInfo = (ADInboxItemsInfo)ViewData["InboxInfo"];
+    DataTable dt = (DataTable)ViewData["resultDetail"];
+    List<STGridColumnsInfo> lstData = ((List<STGridColumnsInfo>)ViewData["listCol"]);
+    var grid = Html.DevExpress().GridView(s =>
+    {
+        s.Name = "fld_gvResultDetail";
+        s.Width = Unit.Percentage(100);
+        s.SettingsPager.PageSize = 50;
+        s.ControlStyle.Paddings.Padding = Unit.Pixel(0);
+        s.ControlStyle.BorderBottom.BorderWidth = Unit.Pixel(1);
+        s.SettingsBehavior.AllowFocusedRow = true;
+        s.Settings.HorizontalScrollBarMode = ScrollBarMode.Visible;
+        if (lstData.Count > 0)
+        {
+            s.KeyFieldName = GMCDbUtil.GetTablePrimaryColumn(lstData.FirstOrDefault().STGridColumnTableName);
+            foreach (STGridColumnsInfo item in lstData)
+            {
+                s.Columns.Add(col =>
+                {
+                    col.FieldName = item.STGridColumnName;
+                    col.Caption = item.STGridColumnCaption;
+                    col.Width = item.STGridColumnW;
+                    col.VisibleIndex = item.STGridColumnTabIndex;
+                    col.Visible = item.STGridColumnVisible;
+                    col.SortIndex = item.STGridColumnTabIndex;
+                    if (GMCDbUtil.GetColumnDataType(item.STGridColumnTableName, item.STGridColumnName) == "datetime")
+                        col.ColumnType = MVCxGridViewColumnType.DateEdit;
+                });
+            }
+        }
+    });
+    if (grid != null && dt.Rows.Count > 0 && lstData.Count > 0)
+    {
+        grid.Bind(dt);
+    }
+}
+@Html.DevExpress().Panel(s =>
+{
+    s.Name = "fld_subGuiMessage";
+    s.ControlStyle.CssClass = "modal-dialog modal-lg";
+    s.SetContent(() =>
+    {
+        ViewContext.Writer.Write(Html.ModalPanelStartTag(Convert.ToString(ViewData["ModalTitle"])).ToHtmlString() +
+
+            Html.GroupPanel("Thông tin",
+                Html.FormPanel(
+                    Html.FormGroupControlPanel(
+                        Html.FormControlPanel(
+                            Html.Label("lblSubject", "Subject", new { @class = "col-sm-2 control-label" }).ToString(),
+                            Html.TextBox("txtSubject", inboxInfo.ADInboxItemSubject, new { @class = "form-control", @readonly = "readonly" }).ToString()
+                        ).ToString()
+                    ).ToString() +
+
+                    Html.FormGroupControlPanel(
+                        Html.FormControlPanel(
+                            Html.Label("lblFormUser", "Sender", new { @class = "col-sm-2 control-label" }).ToString(),
+                            Html.TextBox("txtFormUser", UserCtrl.GetObjectNameByID(inboxInfo.FK_ADFromUserID), new { @class = "form-control", @readonly = "readonly" }).ToString()
+                        ).ToString() +
+                        Html.FormControlPanel(
+                            Html.Label("lblMailTo", "Mail To", new { @class = "col-sm-2 control-label" }).ToString(),
+                            Html.TextBox("txtMailTo", inboxInfo.ADMailToUsers, new { @class = "form-control", @readonly = "readonly" }).ToString()
+                        ).ToString()
+                    ).ToString() 
+                ).ToString()
+            ).ToString() +
+
+            Html.GroupPanel("Nội dung",
+                Html.FormPanel(
+                    Html.FormGroupControlPanel(
+                        Html.TextArea("fldRemark", inboxInfo.ADInboxItemMessage, new { @class = "form-control no-resize", @rows = "5" }).ToString()
+                    , "col-sm-12").ToString()
+                ).ToString()
+            ).ToString()
+        );
+
+        ViewContext.Writer.Write(Html.GroupPanelStartTag("Chi tiết").ToString());
+
+        grid.GetHtml();
+        ViewContext.Writer.Write(Html.GroupPanelEndTag().ToHtmlString());
+        ViewContext.Writer.Write(Html.ModalPanelEndTag().ToHtmlString());
+    });
+}).GetHtml();

@@ -1,0 +1,26 @@
+@using DXWebApp;
+<div class="footerMenu">
+    <div class="btn-toolbar">
+        <div class="btn-group btn-group-sm btn-group-xs">
+            <div class="btn">@Convert.ToDateTime(AuthConfig.GetSession("WorkingDate")).ToString("dd/MM/yyyy")</div>
+        </div>
+        <div class="btn-group btn-group-sm btn-group-xs">
+            <div class="btn">Period: @Convert.ToInt32(AuthConfig.GetSession("WorkingPeriod"))</div>
+        </div>
+        <div class="btn-group btn-group-sm btn-group-xs">
+            <div class="btn">Year: @Convert.ToInt32(AuthConfig.GetSession("WorkingYear"))</div>
+        </div>
+        <div class="btn-group btn-group-sm btn-group-xs">
+            <div class="btn">Server: @Convert.ToString(AuthConfig.GetSession("CurrentServer"))</div>
+        </div>
+        <div class="btn-group btn-group-sm btn-group-xs">
+            <div class="btn">Database: @Convert.ToString(AuthConfig.GetSession("CurrentDatabase"))</div>
+        </div>
+    </div>
+</div>
+<div class="copyright hidden-xs hidden-sm">
+    @Html.DevExpress().Label(settings => {
+    settings.EncodeHtml = false;
+    settings.Text = DateTime.Now.Year + " &copy; Copyright by Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+}).GetHtml()
+</div>

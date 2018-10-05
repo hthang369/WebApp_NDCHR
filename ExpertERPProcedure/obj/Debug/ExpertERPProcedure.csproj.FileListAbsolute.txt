@@ -1,0 +1,12 @@
+D:\gmc\WebApplication\NDCHR\ExpertERPProcedure\obj\Debug\ExpertERPProcedure.csprojResolveAssemblyReference.cache
+D:\gmc\WebApplication\NDCHR\ExpertERPProcedure\bin\Debug\ExpertERPProcedure.dll
+D:\gmc\WebApplication\NDCHR\ExpertERPProcedure\bin\Debug\ExpertERPProcedure.pdb
+D:\gmc\WebApplication\NDCHR\ExpertERPProcedure\bin\Debug\ExpertERPWeb.BaseEntities.dll
+D:\gmc\WebApplication\NDCHR\ExpertERPProcedure\bin\Debug\ExpertWebLib.dll
+D:\gmc\WebApplication\NDCHR\ExpertERPProcedure\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\gmc\WebApplication\NDCHR\ExpertERPProcedure\bin\Debug\GMCGATE.dll
+D:\gmc\WebApplication\NDCHR\ExpertERPProcedure\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\gmc\WebApplication\NDCHR\ExpertERPProcedure\bin\Debug\ExpertERPWeb.BaseEntities.pdb
+D:\gmc\WebApplication\NDCHR\ExpertERPProcedure\bin\Debug\ExpertWebLib.pdb
+D:\gmc\WebApplication\NDCHR\ExpertERPProcedure\obj\Debug\ExpertERPProcedure.dll
+D:\gmc\WebApplication\NDCHR\ExpertERPProcedure\obj\Debug\ExpertERPProcedure.pdb
